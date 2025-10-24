@@ -2,3 +2,5 @@ services:
   - type: web
     name: 11a1-langbiang-2025-2026
     env: static
+    buildCommand: ""
+    staticPublishPath: .
