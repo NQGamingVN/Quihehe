@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Thêm MathJax để hỗ trợ công thức toán học -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        svg: {
+          fontCache: 'global'
+        }
+      };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App - Trắc Nghiệm Offline</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Trang 1: Màn hình chính -->
+    <div id="page1" class="page active">
+        <div class="container">
+            <!-- HEADER ĐƠN GIẢN -->
+            <div class="card info-section">
+                <div class="main-title">📐 Website được tạo ra cho tập thể lớp 11A1!</div>
+                <div class="info-content">
+                    <p>• Mọi hành động chia sẻ đều được phép!</p>
+                    <p>• Lưu ý: Vui lòng không tự ý tải và chỉnh sửa source!</p>
+                    <p>• Mọi thông tin về lỗi xin liên hệ:</p>
+                    <p class="contact-info">&nbsp;&nbsp;&nbsp;Zalo: 0977329375</p>
+                    <p class="contact-info">&nbsp;&nbsp;&nbsp;Messenger:<a href="https://m.me/Quangnormal" target="_blank" class="messenger-link">m.me/Quangnormal</a></p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="input-section">
+                    <label for="userName">Tên của bạn</label>
+                    <input type="text" id="userName" placeholder="Nhập tên của bạn...">
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📚 Chọn môn học</h2>
+                <div id="subjectList" class="subject-list">
+                    <!-- Danh sách môn học sẽ được thêm vào đây -->
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>⚙️ Cài đặt</h2>
+                <div class="config-section">
+                    <div class="config-option">
+                        <input type="checkbox" id="shuffleAnswers">
+                        <label for="shuffleAnswers">
+                            <span class="checkmark"></span>
+                            Xáo trộn đáp án
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-section">
+                <button id="startBtn" class="btn-primary">
+                    <span>🚀 Bắt đầu làm bài</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trang 2: Làm bài trắc nghiệm -->
+    <div id="page2" class="page">
+        <div class="container">
+            <div class="quiz-header">
+                <div class="header-info">
+                    <h1 id="quizTitle">Bài kiểm tra</h1>
+                    <div class="question-counter">
+                        <span id="questionCounter">Câu 1/10</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card question-section">
+                <div class="question-content">
+                    <h2 id="questionText">Câu hỏi sẽ hiển thị ở đây</h2>
+                </div>
+            </div>
+
+            <div class="card options-section">
+                <div class="options-container" id="optionsContainer">
+                    <!-- Các lựa chọn sẽ được thêm vào đây -->
+                </div>
+            </div>
+
+            <div class="status-container">
+                <div id="status" class="status">🤔 Đang làm...</div>
+            </div>
+
+            <div class="card navigation-section">
+                <div class="navigation">
+                    <button id="prevBtn" class="btn-secondary">
+                        <span>◀ Trước</span>
+                    </button>
+                    <button id="checkBtn" class="btn-primary">
+                        <span>✅ Kiểm tra</span>
+                    </button>
+                    <button id="nextBtn" class="btn-secondary">
+                        <span>Tiếp theo ▶</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trang 3: Kết quả -->
+    <div id="page3" class="page">
+        <div class="container">
+            <div class="header-section">
+                <h1>🎉 Kết quả bài làm</h1>
+                <p class="subtitle">Xem chi tiết kết quả của bạn</p>
+            </div>
+
+            <div class="card score-section">
+                <div class="score-display">
+                    <div class="score-item">
+                        <span class="score-label">Số câu đúng</span>
+                        <span id="scoreText" class="score-value">0/0</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-label">Điểm số</span>
+                        <span id="pointText" class="score-value">0.0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📊 Chi tiết kết quả</h2>
+                <div id="resultDetails" class="result-details">
+                    <!-- Chi tiết kết quả sẽ được thêm vào đây -->
+                </div>
+            </div>
+
+            <div class="action-section">
+                <button id="restartBtn" class="btn-secondary">
+                    <span>🔄 Làm lại</span>
+                </button>
+                <button id="newQuizBtn" class="btn-primary">
+                    <span>📝 Bài mới</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal xem chi tiết câu hỏi -->
+    <div id="questionDetailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Chi tiết câu hỏi</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-question">
+                    <h4 id="detailQuestionText"></h4>
+                </div>
+                
+                <!-- Multiple Choice -->
+                <div class="detail-options">
+                    <div class="detail-option" data-option="A">
+                        <span class="option-letter">A.</span>
+                        <span id="detailOptionA" class="option-text"></span>
+                    </div>
+                    <div class="detail-option" data-option="B">
+                        <span class="option-letter">B.</span>
+                        <span id="detailOptionB" class="option-text"></span>
+                    </div>
+                    <div class="detail-option" data-option="C">
+                        <span class="option-letter">C.</span>
+                        <span id="detailOptionC" class="option-text"></span>
+                    </div>
+                    <div class="detail-option" data-option="D">
+                        <span class="option-letter">D.</span>
+                        <span id="detailOptionD" class="option-text"></span>
+                    </div>
+                </div>
+                
+                <!-- Short Answer -->
+                <div class="detail-short-answer" style="display: none;">
+                    <!-- Nội dung sẽ được thêm bằng JavaScript -->
+                </div>
+                
+                <!-- True/False Set -->
+                <div class="detail-true-false" style="display: none;">
+                    <!-- Nội dung sẽ được thêm bằng JavaScript -->
+                </div>
+                
+                <div class="detail-result">
+                    <div class="result-info">
+                        <div class="user-choice">
+                            <span>Đáp án bạn chọn: </span>
+                            <span id="detailUserChoice" class="choice-value"></span>
+                        </div>
+                        <div class="correct-answer">
+                            <span>Đáp án đúng: </span>
+                            <span id="detailCorrectAnswer" class="answer-value"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
