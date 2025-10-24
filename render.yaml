@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: 11a1-langbiang
+    name: langbiang-11a1
     env: static
     buildCommand: ""
     staticPublishPath: .
